@@ -87,7 +87,7 @@ function fetchLocalApi$1(){
           }})}"></div>
           <button class="loadmore ${on({click:function(){
             let contentDom = this.parentElement.querySelector(':scope > .content');
-            fetch(`/api/v3/streams/contents?streamId=${category.id}&continuation=${continuation}`).then(result => result.json())
+            fetch(`/api/v3/streams/contents?streamId=${category.id}&continuation=${continuation}`,{credentials: 'same-origin'}).then(result => result.json())
             .then(result => {
               continuation = result.continuation;
               let template = document.createElement('template');

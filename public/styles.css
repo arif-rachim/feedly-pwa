@@ -1,0 +1,43 @@
+html,body{
+  margin : 0px;
+  padding : 0px;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+}
+
+body{
+  max-width: 600px;
+  margin: auto;
+  padding : 1.5em;
+}
+
+h1 {
+  font-weight: bold;
+  border-bottom: 1px solid #EEE;
+  padding-bottom: 0.5em;
+}
+
+h2 {
+  font-size: 1.2em;
+}
+
+p{
+  line-height: 1.4em;
+}
+
+.content{
+  padding-bottom: 1em;
+}
+
+button {
+  padding : 1.2em;
+  font-size:1em;
+  border: 0;
+  background-color: #EEE;
+  opacity: 0.8;
+  box-shadow: none;
+  border-radius: 0px;
+}
+.loadmore {
+  width : 100%;
+}

@@ -1,0 +1,24 @@
+{
+  "name": "feedly-pwa",
+  "version": "1.0.0",
+  "description": "Progressive Web Apps with Feedly Cloud API",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yallajs/feedly-pwa.git"
+  },
+  "author": "a.arif.r@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/yallajs/feedly-pwa/issues"
+  },
+  "homepage": "https://github.com/yallajs/feedly-pwa#readme",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "node-fetch": "^2.0.0"
+  }
+}

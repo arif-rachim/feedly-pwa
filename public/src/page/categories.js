@@ -3,7 +3,7 @@ import on from '../on.js';
 function fetchLocalApi(){
   let dom = this;
   let continuation = '';
-  fetch('/api/v3/categories').then(result => result.json()).then(result => {
+  fetch('/api/v3/categories',{credentials: 'same-origin'}).then(result => result.json()).then(result => {
     dom.innerHTML = result.map(category => {
       return `
         <section id="${category.id}">
@@ -11,7 +11,7 @@ function fetchLocalApi(){
           <div class="content ${on({create:function(){
             let contentDom = this;
 
-            fetch(`/api/v3/streams/contents?streamId=${category.id}`).then(result => result.json())
+            fetch(`/api/v3/streams/contents?streamId=${category.id}`,{credentials: 'same-origin'}).then(result => result.json())
             .then(result => {
               debugger;
               continuation = result.continuation;
@@ -26,9 +26,6 @@ function fetchLocalApi(){
           }})}"></div>
           <button class="loadmore ${on({click:function(){
             let contentDom = this.parentElement.querySelector(':scope > .content');
-            debugger;
-            // do something to load more dispatchReady
-
             fetch(`/api/v3/streams/contents?streamId=${category.id}&continuation=${continuation}`).then(result => result.json())
             .then(result => {
               continuation = result.continuation;

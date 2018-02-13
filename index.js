@@ -16,42 +16,8 @@ app.get('/api/*', (req, res) => {
 
 app.get('/clean-address',(req,res) => {
     let address = req.originalUrl.substr('/clean-address?address='.length,req.originalUrl.length);
-    console.log('Hey we have address to request ',address);
 
-    function appendStyle(html){
-        let style = `
-        <style>
-        @import url('https://fonts.googleapis.com/css?family=Lato:300');
-        * {
-            font-family: 'Lato', sans-serif;
-        }
-        a {
-            text-decoration-line: none;
-            color: inherit;
-        }
-        body {
-            padding : 1em;
-            overflow: auto;
-        }
-        body > * {
-            width: 100% !important;
-        }
-        *{
-            margin-left: 0px !important;
-        }
-        </style>
-        `;
-        let indexOfBody = html.indexOf('</body>')
-        html = html.substr(0,indexOfBody)+style+html.substr(indexOfBody,html.length);
-        console.log('We have html ',html);
-        return html;
-    }
     fetch(address).then(result => result.text())
-        .then(text => {
-            //return appendStyle(stripTags(text,['nav','footer','iframe','input','form','head','ul','button','banner','header']));
-            //return appendStyle(stripTags(text,['nav','footer','iframe','input','form','head','ul','button','banner']));
-            return text;
-        })
         .then(text => {
             res.status(200).send(text);
         })

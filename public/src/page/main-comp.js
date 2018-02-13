@@ -9,6 +9,7 @@ window.addEventListener('hashchange',(event)=>{
 });
 
 let existingTitle = [];
+let headerLoadingActive = true;
 function openCategory (category,clear) {
     let element = this;
     element.data = element.data || {};
@@ -19,6 +20,7 @@ function openCategory (category,clear) {
         existingTitle = [];
         element.data.continuation = '';
         element.data.page = 0;
+        element.innerHTML = '';
         requestAnimationFrame(function(){
             window.scroll({
                 top : 0,
@@ -43,12 +45,15 @@ function openCategory (category,clear) {
             }).join('');
 
             let contents = template.content.cloneNode(true);
-            if(clear){
-                element.innerHTML = '';
-            }
             Array.from(contents.childNodes).forEach(node => {
                 element.appendChild(node);
             });
+            if(headerLoadingActive){
+                let header = document.querySelector('header');
+                header.classList.add('close');
+                headerLoadingActive = false;
+            }
+
         });
 }
 
@@ -65,7 +70,6 @@ function cleanFilterContent(content){
         return text.substr(0,250)+"..."
     }
     return text;
-    //return content;
 }
 
 function extractImage(item){

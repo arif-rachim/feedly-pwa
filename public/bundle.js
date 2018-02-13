@@ -169,6 +169,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
     });
 
     var existingTitle = [];
+    var headerLoadingActive = true;
     function openCategory(category, clear) {
         var element = this;
         element.data = element.data || {};
@@ -179,6 +180,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             existingTitle = [];
             element.data.continuation = '';
             element.data.page = 0;
+            element.innerHTML = '';
             requestAnimationFrame(function () {
                 window.scroll({
                     top: 0,
@@ -204,12 +206,14 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             }).join('');
 
             var contents = template.content.cloneNode(true);
-            if (clear) {
-                element.innerHTML = '';
-            }
             Array.from(contents.childNodes).forEach(function (node) {
                 element.appendChild(node);
             });
+            if (headerLoadingActive) {
+                var header = document.querySelector('header');
+                header.classList.add('close');
+                headerLoadingActive = false;
+            }
         });
     }
 
@@ -226,7 +230,6 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             return text.substr(0, 250) + "...";
         }
         return text;
-        //return content;
     }
 
     function extractImage(item) {
@@ -276,14 +279,17 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             document.querySelector('.article-detail').classList.remove('article-detail--open');
         }
     };
+
     function openNews(address) {
         // lets create iframe inside this shit !
         var component = this;
-        component.innerHTML = '\n    <div class="article-detail--header navigation">\n        <button class="back-button ' + on(backButtonCtrl) + '">Back</button>\n        <button class="back-button ' + on({
+        component.innerHTML = '\n    <div class="article-detail--header navigation">\n        <button class="back-button ' + on(backButtonCtrl) + '">Back</button>\n        \n        <button class="back-button ' + on({
             click: function click() {
                 window.open(address);
             }
-        }) + '" style="float: right;margin-right: 0em;">Open In New Tab</button>\n    </div>\n    <object class="embed-news" type="text/html" data="' + location.origin + '/clean-address?address=' + address + '" style="width:100%; height:100%"></object>';
+        }) + '" style="float: right;margin-right: 0em;">Open In New Tab</button>\n    </div>\n    <p id="loading-detail-text" class="loading-text" style="display: inline-block">Loading ...</p>\n    <object class="embed-news ' + on({ load: function load() {
+                document.querySelector('#loading-detail-text').style.display = 'none';
+            } }) + '" type="text/html" data="' + location.origin + '/clean-address?address=' + address + '" style="width:100%; height:100%" ></object>';
         component.classList.add('article-detail--open');
     }
 

@@ -41,13 +41,26 @@ document.addEventListener('animationstart',(event)=>{
         dispatchReady(componentName,event.target);
     }
 });
-
-export default (callback) => {
+function merge(target,source){
+    for (var property in source) {
+        if (source.hasOwnProperty(property)) {
+            target[property] = source[property];
+        }
+    }
+}
+export default function() {
+    let callback = arguments[0];
     if(typeof callback === 'function'){
         return binder(callback);
     }else{
         return binder((component)=>{
-            for(let [key,value] of Object.entries(callback)){
+            let param = Array.from(arguments).reduce((current,next) => {
+                let result = {};
+                merge(result,current);
+                merge(result,next);
+                return result;
+            },{});
+            for(let [key,value] of Object.entries(param)){
                 component.addEventListener(key,(...args) => {
                     value.apply(component,args);
                 });

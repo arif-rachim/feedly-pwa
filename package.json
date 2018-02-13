@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "node index.js"
+    "start": "node index.js",
+    "rollup": "rollup -c"
   },
   "repository": {
     "type": "git",
@@ -21,5 +22,13 @@
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "node-fetch": "^2.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^7.0.1",
+    "rollup": "^0.55.5",
+    "strip-tags": "^0.1.1"
   }
 }

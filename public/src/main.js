@@ -1,45 +1,9 @@
-
-import navigationComp from './page/navigation-comp.js';
-import mainComp from './page/main-comp.js';
-import articleDetailComp from './page/article-detail-comp.js';
+import articleNavigation from './page/article-navigation.js';
+import articleList from './page/article-list.js';
 
 import on from './on.js';
 
-window.addEventListener('displaynews',function(event){
-    let news = event.data;
-    let articleDetailComp = document.querySelector('section.article-detail');
-    articleDetailComp.style = {}
-    articleDetailComp.openNews(news);
-});
 
-window.addEventListener('scroll',(function(){
-    let lastScrollTop = 0;
-    let isScrollUp = true;
-
-
-
-    return function(event){
-        let st = window.pageYOffset || document.documentElement.scrollTop; // Credits: "https://github.com/qeremy/so/blob/master/so.dom.js#L426"
-        let scrollDirection = st < lastScrollTop;
-        if(scrollDirection!=isScrollUp){
-            requestAnimationFrame(function(){
-                isScrollUp = scrollDirection;
-                let nav = document.querySelector('nav');
-                nav.classList.toggle('nav-up');
-            });
-        }
-
-        let d = document.documentElement;
-        let offset = d.scrollTop + window.innerHeight;
-        let height = d.offsetHeight;
-
-        if (offset === height) {
-            let main = document.querySelector('main');
-            main.loadNextPage();
-        }
-        lastScrollTop = st;
-    }
-})());
 
 const openCategory = function(event){
     let main = document.querySelector('main');
@@ -49,19 +13,26 @@ const openCategory = function(event){
 document.body.innerHTML = `
 <header>
     <div>
-        <p class="header-title">Defense News</p>
-        <p class="header-description">Latest news and emerging technology</p>
+        <p class="header-title">CETC</p>
+        <p class="header-description">Commander Emerging Technology Center</p>
     </div>
 </header>
-<nav class="navigation ${on(navigationComp,{opencategory:openCategory})}" ></nav>
-<main class="${on(mainComp)}">
-</main>
-<p class="loading-text">Loading ...</p>
-<section class="article-detail ${on(articleDetailComp)}">
-    
-</section>
+<div style="display: flex;flex-direction: column">
+    <div style="display: flex;flex-direction: column;background-color: #E4E1DE" class="header-background">
+        <div style="margin-left: 2em;margin-right: 2em">
+            <h1 style="margin-bottom: 0px;color: #4B4B4B">CETC</h1>
+            <p style="margin-top: 0px;color: #4B4B4B">Commander's Emerging Technology Center</p>
+        </div>
+        <nav class="${on(articleNavigation, {opencategory: openCategory})}" style="display: inline-block;height: 50px"></nav>
+    </div>
+    <div style="overflow: auto;height: calc(100vh - 160px)">
+        <div class="page" >
+            <main class="${on(articleList)}">
+            </main>
+            <button class="button-load-more ${on({click: () => document.querySelector('main').loadNextPage()})}">Load More</button>
+        </div>
+    </div>
+</div>
 <footer>
 </footer>
-
-
 `;

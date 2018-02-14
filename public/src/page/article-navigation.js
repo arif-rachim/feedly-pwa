@@ -10,7 +10,7 @@ const paintFactory = function(){
         ${categories.map(category => {
             let categoryCtrl = {
                 click : function(){
-                    Array.from(document.querySelectorAll('.navigation > ul > li')).forEach(node => {
+                    Array.from(document.querySelectorAll('nav > ul > li')).forEach(node => {
                         node.classList.remove('menu--selected')
                     });
                     this.parentNode.classList.add('menu--selected');

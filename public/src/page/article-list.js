@@ -66,8 +66,8 @@ function cleanFilterContent(content){
     var tmp = document.createElement("div");
     tmp.innerHTML = content;
     let text = tmp.textContent || tmp.innerText || "";
-    if(text.length > 250){
-        return text.substr(0,250)+"..."
+    if(text.length > 150){
+        return text.substr(0,150)+"..."
     }
     return text;
 }
@@ -91,17 +91,13 @@ function filterOriginTitle(title){
 }
 
 function printArticle(item){
-
     let articleCtrl = {
         click : function(){
-            var event = new Event('displaynews');
             if(item.canonicalUrl){
-                event.data = item.canonicalUrl;
+                window.open(item.canonicalUrl);
             }else if(item.alternate && item.alternate.length > 0){
-                event.data = item.alternate[0].href;
+                window.open(item.alternate[0].href);
             }
-            window.dispatchEvent(event);
-
         }
     }
     return `

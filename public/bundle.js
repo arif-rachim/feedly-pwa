@@ -125,7 +125,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             var result = '<ul>\n        ' + categories.map(function (category) {
                 var categoryCtrl = {
                     click: function click() {
-                        Array.from(document.querySelectorAll('.navigation > ul > li')).forEach(function (node) {
+                        Array.from(document.querySelectorAll('nav > ul > li')).forEach(function (node) {
                             node.classList.remove('menu--selected');
                         });
                         this.parentNode.classList.add('menu--selected');

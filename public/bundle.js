@@ -247,6 +247,35 @@ const openCategory$1 = function(event){
     main.openCategory(event.data);
 };
 
+function debounce(func, wait, immediate) {
+    var timeout;
+    return function() {
+        var context = this, args = arguments;
+        var later = function() {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+}
+let scrollerLastPos = 100;
+window.addEventListener('scroll', debounce(function(event){
+    if(document.documentElement.scrollTop <60){
+        document.querySelector('.header-background').classList.remove('hide');
+        document.querySelector('.header-background').classList.remove('showmenu');
+    }else if(document.documentElement.scrollTop > scrollerLastPos){
+        document.querySelector('.header-background').classList.remove('showmenu');
+        document.querySelector('.header-background').classList.add('hide');
+    }else{
+        document.querySelector('.header-background').classList.remove('hide');
+        document.querySelector('.header-background').classList.add('showmenu');
+    }
+    scrollerLastPos = document.documentElement.scrollTop;
+},100));
+
 document.body.innerHTML = `
 <header>
     <div>
@@ -254,21 +283,21 @@ document.body.innerHTML = `
         <p class="header-description">Commander Emerging Technology Center</p>
     </div>
 </header>
-<div style="display: flex;flex-direction: column">
-    <div style="display: flex;flex-direction: column;background-color: #E4E1DE" class="header-background">
+<div >
+    <div style="display: flex;flex-direction: column;background-color: #E4E1DE;position: fixed;width: 100vw" class="header-background">
         <div style="margin-left: 2em;margin-right: 2em">
             <h1 style="margin-bottom: 0px;color: #4B4B4B">CETC</h1>
             <p style="margin-top: 0px;color: #4B4B4B">Commander's Emerging Technology Center</p>
         </div>
         <nav class="${on(navigationComponent, {opencategory: openCategory$1})}" style="display: inline-block;height: 50px"></nav>
     </div>
-    <div style="overflow: auto;height: calc(100vh - 160px)">
-        <div class="page" >
-            <main class="${on(articleList)}">
-            </main>
-            <button class="button-load-more ${on({click: () => document.querySelector('main').loadNextPage()})}">Load More</button>
-        </div>
+    
+    <div class="page" style="margin-top: 9em" >
+        <main class="${on(articleList)}">
+        </main>
+        <button class="button-load-more ${on({click: () => document.querySelector('main').loadNextPage()})}">Load More</button>
     </div>
+    
 </div>
 <footer>
 </footer>

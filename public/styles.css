@@ -208,8 +208,13 @@ header.close {
   margin: auto;
 }
 
+.button-load-more.hide{
+  display: none;
+}
+
 .header-background{
   background: url("assets/background-pattern.svg");
   background-repeat: no-repeat;
   background-size: cover;
 }
+

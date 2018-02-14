@@ -20,7 +20,9 @@ function openCategory (category,clear) {
         existingTitle = [];
         element.data.continuation = '';
         element.data.page = 0;
+        document.querySelector('.button-load-more').classList.add('hide');
         element.innerHTML = '';
+
         requestAnimationFrame(function(){
             window.scroll({
                 top : 0,
@@ -53,7 +55,7 @@ function openCategory (category,clear) {
                 header.classList.add('close');
                 headerLoadingActive = false;
             }
-
+            document.querySelector('.button-load-more').classList.remove('hide');
         });
 }
 

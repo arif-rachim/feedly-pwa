@@ -17,5 +17,3 @@ gulp.task('babel', () =>
         }))
         .pipe(gulp.dest('./public'))
 );
-
-gulp.task('default',['rollup','babel']);

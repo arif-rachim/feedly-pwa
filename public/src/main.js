@@ -34,8 +34,10 @@ window.addEventListener('scroll', debounce(function(event){
         document.querySelector('.header-background').classList.remove('hide');
         document.querySelector('.header-background').classList.add('showmenu');
     }
-    scrollerLastPos = document.documentElement.scrollTop;
-},100));
+    requestAnimationFrame(function(){
+        scrollerLastPos = document.documentElement.scrollTop;
+    });
+},10,true));
 
 document.body.innerHTML = `
 <header>
@@ -46,14 +48,14 @@ document.body.innerHTML = `
 </header>
 <div >
     <div style="display: flex;flex-direction: column;background-color: #E4E1DE;position: fixed;width: 100vw" class="header-background">
-        <div style="margin-left: 2em;margin-right: 2em">
-            <h1 style="margin-bottom: 0px;color: #4B4B4B">CETC</h1>
-            <p style="margin-top: 0px;color: #4B4B4B">Commander's Emerging Technology Center</p>
+        <div style="margin-left: 1em;margin-right: 1em">
+            <h1 style="margin-bottom: 0px;color: #4B4B4B;font-size:1.2em;">CETC</h1>
+            <p style="margin-top: 0px;color: #4B4B4B;font-size:0.9em">Commander's Emerging Technology Center</p>
         </div>
-        <nav class="${on(articleNavigation, {opencategory: openCategory})}" style="display: inline-block;height: 50px"></nav>
+        <nav class="${on(articleNavigation, {opencategory: openCategory})}" style="display: inline-block;"></nav>
     </div>
     
-    <div class="page" style="margin-top: 9em" >
+    <div class="page" style="margin-top: 6.5em" >
         <main class="${on(articleList)}">
         </main>
         <button class="button-load-more ${on({click: () => document.querySelector('main').loadNextPage()})}">Load More</button>

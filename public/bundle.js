@@ -263,7 +263,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                 }
             }
         };
-        return '\n    <article class="' + on(articleCtrl) + '">\n      <div class="article-container">\n        <div style="text-align: center">\n            <img src="' + extractImage(item) + '" style="margin: auto;width: 100%" onerror="this.style.display=\'none\'">\n        </div>\n        <h2 class="article--title" >' + item.title + '</h2>\n        <p class="article--origin">' + (item.origin ? filterOriginTitle(item.origin.title) : '') + ' ' + (item.author ? '/ by ' + item.author : '') + '</p>\n        <p class="article--content">' + (item.summary ? cleanFilterContent(item.summary.content) : item.content ? cleanFilterContent(item.content.content) : '') + '</p>\n        <!--\n        <pre style="font-size:0.5em">' + JSON.stringify(item, null, 4) + '</pre>\n        -->\n      </div>\n    </article>';
+        return '\n    <article class="' + on(articleCtrl) + '">\n      <div class="article-container">\n        <div style="text-align: center">\n            <img src="' + extractImage(item) + '" style="margin: auto;width: 100%" height="200px" onerror="this.style.display=\'none\'">\n        </div>\n        <h2 class="article--title" >' + item.title + '</h2>\n        <p class="article--origin">' + (item.origin ? filterOriginTitle(item.origin.title) : '') + ' ' + (item.author ? '/ by ' + item.author : '') + '</p>\n        <p class="article--content">' + (item.summary ? cleanFilterContent(item.summary.content) : item.content ? cleanFilterContent(item.content.content) : '') + '</p>\n        <!--\n        <pre style="font-size:0.5em">' + JSON.stringify(item, null, 4) + '</pre>\n        -->\n      </div>\n    </article>';
     }
 
     var articleList = {
@@ -306,10 +306,12 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
             document.querySelector('.header-background').classList.remove('hide');
             document.querySelector('.header-background').classList.add('showmenu');
         }
-        scrollerLastPos = document.documentElement.scrollTop;
-    }, 100));
+        requestAnimationFrame(function () {
+            scrollerLastPos = document.documentElement.scrollTop;
+        });
+    }, 10, true));
 
-    document.body.innerHTML = '\n<header>\n    <div>\n        <p class="header-title">CETC</p>\n        <p class="header-description">Commander Emerging Technology Center</p>\n    </div>\n</header>\n<div >\n    <div style="display: flex;flex-direction: column;background-color: #E4E1DE;position: fixed;width: 100vw" class="header-background">\n        <div style="margin-left: 2em;margin-right: 2em">\n            <h1 style="margin-bottom: 0px;color: #4B4B4B">CETC</h1>\n            <p style="margin-top: 0px;color: #4B4B4B">Commander\'s Emerging Technology Center</p>\n        </div>\n        <nav class="' + on(navigationComponent, { opencategory: openCategory$1 }) + '" style="display: inline-block;height: 50px"></nav>\n    </div>\n    \n    <div class="page" style="margin-top: 9em" >\n        <main class="' + on(articleList) + '">\n        </main>\n        <button class="button-load-more ' + on({ click: function click() {
+    document.body.innerHTML = '\n<header>\n    <div>\n        <p class="header-title">CETC</p>\n        <p class="header-description">Commander Emerging Technology Center</p>\n    </div>\n</header>\n<div >\n    <div style="display: flex;flex-direction: column;background-color: #E4E1DE;position: fixed;width: 100vw" class="header-background">\n        <div style="margin-left: 1em;margin-right: 1em">\n            <h1 style="margin-bottom: 0px;color: #4B4B4B;font-size:1.2em;">CETC</h1>\n            <p style="margin-top: 0px;color: #4B4B4B;font-size:0.9em">Commander\'s Emerging Technology Center</p>\n        </div>\n        <nav class="' + on(navigationComponent, { opencategory: openCategory$1 }) + '" style="display: inline-block;"></nav>\n    </div>\n    \n    <div class="page" style="margin-top: 6.5em" >\n        <main class="' + on(articleList) + '">\n        </main>\n        <button class="button-load-more ' + on({ click: function click() {
             return document.querySelector('main').loadNextPage();
         } }) + '">Load More</button>\n    </div>\n    \n</div>\n<footer>\n</footer>\n';
 })();

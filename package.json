@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "rollup": "rollup -c"
+    "rollup": "gulp rollup",
+    "babel": "gulp babel",
+    "build" :"npm run rollup && npm run babel"
   },
   "repository": {
     "type": "git",

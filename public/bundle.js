@@ -263,7 +263,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
                 }
             }
         };
-        return '\n    <article class="' + on(articleCtrl) + '">\n      <div class="article-container">\n        <div style="text-align: center">\n            <img src="' + extractImage(item) + '" style="margin: auto;width: 100%" height="200px" onerror="this.style.display=\'none\'">\n        </div>\n        <h2 class="article--title" >' + item.title + '</h2>\n        <p class="article--origin">' + (item.origin ? filterOriginTitle(item.origin.title) : '') + ' ' + (item.author ? '/ by ' + item.author : '') + '</p>\n        <p class="article--content">' + (item.summary ? cleanFilterContent(item.summary.content) : item.content ? cleanFilterContent(item.content.content) : '') + '</p>\n        <!--\n        <pre style="font-size:0.5em">' + JSON.stringify(item, null, 4) + '</pre>\n        -->\n      </div>\n    </article>';
+        return '\n    <article class="' + on(articleCtrl) + '">\n      <div class="article-container">\n        <div style="text-align: center">\n            <img src="' + extractImage(item) + '" style="margin: auto;width: 100%" onerror="this.style.display=\'none\'">\n        </div>\n        <h2 class="article--title" >' + item.title + '</h2>\n        <p class="article--origin">' + (item.origin ? filterOriginTitle(item.origin.title) : '') + ' ' + (item.author ? '/ by ' + item.author : '') + '</p>\n        <p class="article--content">' + (item.summary ? cleanFilterContent(item.summary.content) : item.content ? cleanFilterContent(item.content.content) : '') + '</p>\n        <!--\n        <pre style="font-size:0.5em">' + JSON.stringify(item, null, 4) + '</pre>\n        -->\n      </div>\n    </article>';
     }
 
     var articleList = {
@@ -274,9 +274,64 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         }
     };
 
+    var LOGGED_IN_USER = 'logged-in-user';
+
+    function getLoggedInUser() {
+        var loggedInUserString = localStorage.getItem(LOGGED_IN_USER);
+        if (loggedInUserString) {
+            return JSON.parse(loggedInUserString);
+        }
+        return false;
+    }
+    function saveLoggedInUser() {
+        var userName = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'cetc';
+        var password = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'uae';
+
+        localStorage.setItem(LOGGED_IN_USER, JSON.stringify({ userName: userName }));
+    }
+
     var openCategory$1 = function openCategory$1(event) {
         var main = document.querySelector('main');
         main.openCategory(event.data);
+    };
+
+    var loginMediator = {
+        submit: function submit(event) {
+            event.preventDefault();
+            saveLoggedInUser(event.target.elements.userName.value);
+            window.location.reload();
+        }
+    };
+
+    function loginForm() {
+        return '<div style="position: absolute;width: 100vw;height:100vh;display: flex;align-items: center;justify-content: center">\n    <form class="form-login ' + on(loginMediator) + '">\n        <label>\n            <div style="text-align: center;">\n                <p style="font-size:1.8em;margin : 0px">CETC</p>\n                <p style="margin-bottom:1em">Commander\'s Emerging Technology Center</p>\n            </div>\n        </label>\n        <label>\n            User Name :\n            <input type="text" name="userName" required placeholder="Enter your user name" autofocus>\n        </label>\n        <label style="margin-top: 1em">\n            Password :\n            <input type="password" name="password" required placeholder="Enter your password">\n        </label>\n        <div style="margin-top : 1em">\n            <button type="submit" class="submit-button" style="float: right;border-radius: 0.5em">Login</button>\n        </div>\n    </form>\n</div>';
+    }
+
+    function onLogoutClicked() {
+        var r = window.confirm(getLoggedInUser().userName + ' are you sure you want to Logout ?');
+        if (r) {
+            localStorage.setItem(LOGGED_IN_USER, '');
+            window.location.reload();
+        }
+    }
+
+    function securedPage() {
+        return '\n    <div>\n        <div style="display: flex;flex-direction: column;background-color: #E4E1DE;position: fixed;width: 100vw" class="header-background">\n            <div style="margin-left: 1em;margin-right: 1em;position: relative">\n                <h1 style="margin-bottom: 0px;color: #4B4B4B;font-size:1.1em;">CETC</h1>\n                <p style="margin-top: 0px;margin-bottom:0.5em;color: #4B4B4B;font-size:0.9em">Commander\'s Emerging Technology Center</p>\n                <div style="position: absolute;bottom: -33px;right:0em;font-size: 1em;color: #4B4B4B;">\n                    <button class="' + on({ click: onLogoutClicked }) + '" style="border:none;background-color: inherit;border-left: 1px solid #999999;padding-left: 1em;padding-right:1em;padding-top:7px;padding-bottom:5px;">' + getLoggedInUser().userName + '</button>\n                </div>\n            </div>\n            <nav class="' + on(navigationComponent, { opencategory: openCategory$1 }) + '" style="display: inline-block;"></nav>\n        </div>\n        \n        <div class="page" style="margin-top: 6.5em" >\n            <main class="' + on(articleList) + '">\n            </main>\n            <button class="button-load-more ' + on({ click: function click() {
+                return document.querySelector('main').loadNextPage();
+            } }) + '">Load More</button>\n        </div>\n    </div>\n    ';
+    }
+
+    var loginPage = {
+        create: function create(event) {
+
+            var loggedInUser = getLoggedInUser();
+            if (!loggedInUser) {
+                event.target.innerHTML = loginForm();
+            } else {
+                event.target.innerHTML = securedPage();
+            }
+        },
+        getLoggedInUser: getLoggedInUser
     };
 
     function debounce(func, wait, immediate) {
@@ -311,7 +366,5 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         });
     }, 10, true));
 
-    document.body.innerHTML = '\n<header>\n    <div>\n        <p class="header-title">CETC</p>\n        <p class="header-description">Commander Emerging Technology Center</p>\n    </div>\n</header>\n<div >\n    <div style="display: flex;flex-direction: column;background-color: #E4E1DE;position: fixed;width: 100vw" class="header-background">\n        <div style="margin-left: 1em;margin-right: 1em">\n            <h1 style="margin-bottom: 0px;color: #4B4B4B;font-size:1.2em;">CETC</h1>\n            <p style="margin-top: 0px;color: #4B4B4B;font-size:0.9em">Commander\'s Emerging Technology Center</p>\n        </div>\n        <nav class="' + on(navigationComponent, { opencategory: openCategory$1 }) + '" style="display: inline-block;"></nav>\n    </div>\n    \n    <div class="page" style="margin-top: 6.5em" >\n        <main class="' + on(articleList) + '">\n        </main>\n        <button class="button-load-more ' + on({ click: function click() {
-            return document.querySelector('main').loadNextPage();
-        } }) + '">Load More</button>\n    </div>\n    \n</div>\n<footer>\n</footer>\n';
+    document.body.innerHTML = '\n<header>\n    <div>\n        <p class="header-title">CETC</p>\n        <p class="header-description">Commander Emerging Technology Center</p>\n    </div>\n</header>\n<div class="app-container ' + on(loginPage) + '"></div>\n\n<footer>\n</footer>\n';
 })();

@@ -106,7 +106,7 @@ function printArticle(item){
     <article class="${on(articleCtrl)}">
       <div class="article-container">
         <div style="text-align: center">
-            <img src="${extractImage(item)}" style="margin: auto;width: 100%" height="200px" onerror="this.style.display='none'">
+            <img src="${extractImage(item)}" style="margin: auto;width: 100%" onerror="this.style.display='none'">
         </div>
         <h2 class="article--title" >${item.title}</h2>
         <p class="article--origin">${item.origin ? filterOriginTitle(item.origin.title) : ''} ${item.author ? `/ by ${item.author}` : ''}</p>

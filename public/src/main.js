@@ -1,12 +1,8 @@
 import articleNavigation from './page/article-navigation.js';
 import articleList from './page/article-list.js';
-
+import loginPage from './page/login-page.js';
 import on from './on.js';
 
-const openCategory = function(event){
-    let main = document.querySelector('main');
-    main.openCategory(event.data);
-};
 
 function debounce(func, wait, immediate) {
     var timeout;
@@ -39,6 +35,7 @@ window.addEventListener('scroll', debounce(function(event){
     });
 },10,true));
 
+
 document.body.innerHTML = `
 <header>
     <div>
@@ -46,22 +43,8 @@ document.body.innerHTML = `
         <p class="header-description">Commander Emerging Technology Center</p>
     </div>
 </header>
-<div >
-    <div style="display: flex;flex-direction: column;background-color: #E4E1DE;position: fixed;width: 100vw" class="header-background">
-        <div style="margin-left: 1em;margin-right: 1em">
-            <h1 style="margin-bottom: 0px;color: #4B4B4B;font-size:1.2em;">CETC</h1>
-            <p style="margin-top: 0px;color: #4B4B4B;font-size:0.9em">Commander's Emerging Technology Center</p>
-        </div>
-        <nav class="${on(articleNavigation, {opencategory: openCategory})}" style="display: inline-block;"></nav>
-    </div>
-    
-    <div class="page" style="margin-top: 6.5em" >
-        <main class="${on(articleList)}">
-        </main>
-        <button class="button-load-more ${on({click: () => document.querySelector('main').loadNextPage()})}">Load More</button>
-    </div>
-    
-</div>
+<div class="app-container ${on(loginPage)}"></div>
+
 <footer>
 </footer>
 `;

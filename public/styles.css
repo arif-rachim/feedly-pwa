@@ -174,7 +174,7 @@ header {
   background: #F8F8F8; /* Old browsers */
   background: -moz-linear-gradient(top, #F8F8F8 0%, #F4F2EF 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(top, #F8F8F8 0%,#F4F2EF 100%); /* Chrome10-25,Safari5.1-6 */
-  color: #F8F8F8;
+  color: #937B68;
   font-family: Font;
   font-weight: 300;
   background: url("assets/background-pattern.svg");
@@ -231,6 +231,7 @@ header.close {
   flex-direction: row;
   flex-wrap : wrap;
   width: 20em;
+  max-width: 70vw;
   background: #937b68; /* Old browsers */
   background: -moz-linear-gradient(top, #F4F2EF 0%, #F4F2EF 100%); /* FF3.6-15 */
   background: -webkit-linear-gradient(top, #F4F2EF 0%,#F4F2EF 100%); /* Chrome10-25,Safari5.1-6 */

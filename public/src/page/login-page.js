@@ -67,7 +67,7 @@ function securedPage(){
             <div style="margin-left: 1em;margin-right: 1em;position: relative">
                 <h1 style="margin-bottom: 0px;color: #4B4B4B;font-size:1.1em;">CETC</h1>
                 <p style="margin-top: 0px;margin-bottom:0.5em;color: #4B4B4B;font-size:0.9em">Commander's Emerging Technology Center</p>
-                <div style="position: absolute;bottom: -33px;right:0em;font-size: 1em;color: #4B4B4B;">
+                <div style="position: absolute;bottom: -33px;right:0em;font-size: 1em;color: #4B4B4B;${getLoggedInUser().userName == undefined ? 'display:none' : 'display:block'}">
                     <button class="${on({click:onLogoutClicked})}" style="border:none;background-color: inherit;border-left: 1px solid #999999;padding-left: 1em;padding-right:1em;padding-top:7px;padding-bottom:5px;">${getLoggedInUser().userName}</button>
                 </div>
             </div>
@@ -87,11 +87,11 @@ export default {
     create : function (event){
 
         let loggedInUser = getLoggedInUser();
-        if(!loggedInUser){
-            event.target.innerHTML = loginForm();
-        }else{
+        // if(!loggedInUser){
+        //     event.target.innerHTML = loginForm();
+        // }else{
            event.target.innerHTML = securedPage();
-        }
+        // }
     },
     getLoggedInUser : getLoggedInUser
 }

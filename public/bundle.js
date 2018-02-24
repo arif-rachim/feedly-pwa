@@ -283,29 +283,10 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         }
         return false;
     }
-    function saveLoggedInUser() {
-        var userName = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'cetc';
-        var password = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'uae';
-
-        localStorage.setItem(LOGGED_IN_USER, JSON.stringify({ userName: userName }));
-    }
-
     var openCategory$1 = function openCategory$1(event) {
         var main = document.querySelector('main');
         main.openCategory(event.data);
     };
-
-    var loginMediator = {
-        submit: function submit(event) {
-            event.preventDefault();
-            saveLoggedInUser(event.target.elements.userName.value);
-            window.location.reload();
-        }
-    };
-
-    function loginForm() {
-        return '<div style="position: absolute;width: 100vw;height:100vh;display: flex;align-items: center;justify-content: center">\n    <form class="form-login ' + on(loginMediator) + '">\n        <label>\n            <div style="text-align: center;">\n                <p style="font-size:1.8em;margin : 0px">CETC</p>\n                <p style="margin-bottom:1em">Commander\'s Emerging Technology Center</p>\n            </div>\n        </label>\n        <label>\n            User Name :\n            <input type="text" name="userName" required placeholder="Enter your user name" autofocus>\n        </label>\n        <label style="margin-top: 1em">\n            Password :\n            <input type="password" name="password" required placeholder="Enter your password">\n        </label>\n        <div style="margin-top : 1em">\n            <button type="submit" class="submit-button" style="float: right;border-radius: 0.5em">Login</button>\n        </div>\n    </form>\n</div>';
-    }
 
     function onLogoutClicked() {
         var r = window.confirm(getLoggedInUser().userName + ' are you sure you want to Logout ?');
@@ -316,7 +297,7 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
     }
 
     function securedPage() {
-        return '\n    <div>\n        <div style="display: flex;flex-direction: column;background-color: #E4E1DE;position: fixed;width: 100vw" class="header-background">\n            <div style="margin-left: 1em;margin-right: 1em;position: relative">\n                <h1 style="margin-bottom: 0px;color: #4B4B4B;font-size:1.1em;">CETC</h1>\n                <p style="margin-top: 0px;margin-bottom:0.5em;color: #4B4B4B;font-size:0.9em">Commander\'s Emerging Technology Center</p>\n                <div style="position: absolute;bottom: -33px;right:0em;font-size: 1em;color: #4B4B4B;">\n                    <button class="' + on({ click: onLogoutClicked }) + '" style="border:none;background-color: inherit;border-left: 1px solid #999999;padding-left: 1em;padding-right:1em;padding-top:7px;padding-bottom:5px;">' + getLoggedInUser().userName + '</button>\n                </div>\n            </div>\n            <nav class="' + on(navigationComponent, { opencategory: openCategory$1 }) + '" style="display: inline-block;"></nav>\n        </div>\n        \n        <div class="page" style="margin-top: 6.5em" >\n            <main class="' + on(articleList) + '">\n            </main>\n            <button class="button-load-more ' + on({ click: function click() {
+        return '\n    <div>\n        <div style="display: flex;flex-direction: column;background-color: #E4E1DE;position: fixed;width: 100vw" class="header-background">\n            <div style="margin-left: 1em;margin-right: 1em;position: relative">\n                <h1 style="margin-bottom: 0px;color: #4B4B4B;font-size:1.1em;">CETC</h1>\n                <p style="margin-top: 0px;margin-bottom:0.5em;color: #4B4B4B;font-size:0.9em">Commander\'s Emerging Technology Center</p>\n                <div style="position: absolute;bottom: -33px;right:0em;font-size: 1em;color: #4B4B4B;' + (getLoggedInUser().userName == undefined ? 'display:none' : 'display:block') + '">\n                    <button class="' + on({ click: onLogoutClicked }) + '" style="border:none;background-color: inherit;border-left: 1px solid #999999;padding-left: 1em;padding-right:1em;padding-top:7px;padding-bottom:5px;">' + getLoggedInUser().userName + '</button>\n                </div>\n            </div>\n            <nav class="' + on(navigationComponent, { opencategory: openCategory$1 }) + '" style="display: inline-block;"></nav>\n        </div>\n        \n        <div class="page" style="margin-top: 6.5em" >\n            <main class="' + on(articleList) + '">\n            </main>\n            <button class="button-load-more ' + on({ click: function click() {
                 return document.querySelector('main').loadNextPage();
             } }) + '">Load More</button>\n        </div>\n    </div>\n    ';
     }
@@ -325,11 +306,11 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         create: function create(event) {
 
             var loggedInUser = getLoggedInUser();
-            if (!loggedInUser) {
-                event.target.innerHTML = loginForm();
-            } else {
-                event.target.innerHTML = securedPage();
-            }
+            // if(!loggedInUser){
+            //     event.target.innerHTML = loginForm();
+            // }else{
+            event.target.innerHTML = securedPage();
+            // }
         },
         getLoggedInUser: getLoggedInUser
     };

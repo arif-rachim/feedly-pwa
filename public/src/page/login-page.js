@@ -87,11 +87,11 @@ export default {
     create : function (event){
 
         let loggedInUser = getLoggedInUser();
-        // if(!loggedInUser){
-        //     event.target.innerHTML = loginForm();
-        // }else{
+        if(!loggedInUser){
+            event.target.innerHTML = loginForm();
+        }else{
            event.target.innerHTML = securedPage();
-        // }
+        }
     },
     getLoggedInUser : getLoggedInUser
 }

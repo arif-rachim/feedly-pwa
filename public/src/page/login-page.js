@@ -40,6 +40,7 @@ function loginForm(){
         <label>
             User Name :
             <input type="text" name="userName" required placeholder="Enter your user name" autofocus>
+            <span style="font-size: 0.8em;margin-left:0.2em;color: green">User Name and Password : demo/demo</span>
         </label>
         <label style="margin-top: 1em">
             Password :

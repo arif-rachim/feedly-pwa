@@ -283,29 +283,10 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
         }
         return false;
     }
-    function saveLoggedInUser() {
-        var userName = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 'cetc';
-        var password = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'uae';
-
-        localStorage.setItem(LOGGED_IN_USER, JSON.stringify({ userName: userName }));
-    }
-
     var openCategory$1 = function openCategory$1(event) {
         var main = document.querySelector('main');
         main.openCategory(event.data);
     };
-
-    var loginMediator = {
-        submit: function submit(event) {
-            event.preventDefault();
-            saveLoggedInUser(event.target.elements.userName.value);
-            window.location.reload();
-        }
-    };
-
-    function loginForm() {
-        return '<div style="position: absolute;width: 100vw;height:100vh;display: flex;align-items: center;justify-content: center">\n    <form class="form-login ' + on(loginMediator) + '">\n        <label>\n            <div style="text-align: center;">\n                <p style="font-size:1.8em;margin : 0px">CETC</p>\n                <p style="margin-bottom:1em">Commander\'s Emerging Technology Center</p>\n            </div>\n        </label>\n        <label>\n            User Name :\n            <input type="text" name="userName" required placeholder="Enter your user name" autofocus>\n            <span style="font-size: 0.8em;margin-left:0.2em;color: green">User Name and Password : demo/demo</span>\n        </label>\n        <label style="margin-top: 1em">\n            Password :\n            <input type="password" name="password" required placeholder="Enter your password">\n        </label>\n        <div style="margin-top : 1em">\n            <button type="submit" class="submit-button" style="float: right;border-radius: 0.5em">Login</button>\n        </div>\n    </form>\n</div>';
-    }
 
     function onLogoutClicked() {
         var r = window.confirm(getLoggedInUser().userName + ' are you sure you want to Logout ?');
@@ -324,12 +305,12 @@ var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = [
     var loginPage = {
         create: function create(event) {
 
-            var loggedInUser = getLoggedInUser();
-            if (!loggedInUser) {
-                event.target.innerHTML = loginForm();
-            } else {
-                event.target.innerHTML = securedPage();
-            }
+            // let loggedInUser = getLoggedInUser();
+            // if(!loggedInUser){
+            //     event.target.innerHTML = loginForm();
+            // }else{
+            event.target.innerHTML = securedPage();
+            // }
         },
         getLoggedInUser: getLoggedInUser
     };
